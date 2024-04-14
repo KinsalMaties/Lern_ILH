@@ -1,0 +1,186 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyNKa3RZelYzmROkDbroYsgE",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/KinsalMaties/Lern_ILH/blob/ilkhamiya/Task1_ilkh\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "Номер один"
+      ],
+      "metadata": {
+        "id": "eKXb1qY_EBQo"
+      }
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 2,
+      "metadata": {
+        "id": "m4PJEPsX_7d2"
+      },
+      "outputs": [],
+      "source": [
+        "import pandas as pd"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# Загрузка данных из файла\n",
+        "data = pd.read_csv(\"salary_and_population.csv\")"
+      ],
+      "metadata": {
+        "id": "plNG1D--ADOS"
+      },
+      "execution_count": 3,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# Вывести названия всех столбцов\n",
+        "print(\"Названия всех столбцов:\")\n",
+        "print(data.columns)"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "Rj8qqUifAFKp",
+        "outputId": "fedfd8de-24b7-4c47-8760-28b949d3f983"
+      },
+      "execution_count": 4,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Названия всех столбцов:\n",
+            "Index(['Region_RU', 'Region_EN', 'AVG_Salary', 'Population', 'Unnamed: 4'], dtype='object')\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# Удаление строк для Томской области и Самарской области\n",
+        "unwanted_regions = ['Томская область', 'Самарская область']\n",
+        "data = data[~data['Region_RU'].isin(unwanted_regions)]"
+      ],
+      "metadata": {
+        "id": "5DhjA5LnAG3F"
+      },
+      "execution_count": 5,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# Вычисление среднего значения зарплаты\n",
+        "average_salary = data['AVG_Salary'].mean()\n",
+        "\n",
+        "# Вычисление медианы зарплаты\n",
+        "median_salary = data['AVG_Salary'].median()\n",
+        "\n",
+        "# Вычисление оценки дисперсии зарплаты\n",
+        "variance_estimate = data['AVG_Salary'].var(ddof=0)  # Установка ddof=0 для вычисления выборочной дисперсии\n",
+        "\n",
+        "\n",
+        "\n",
+        "# Среднее значение зарплаты\n",
+        "mean_salary = data['AVG_Salary'].mean()\n",
+        "\n",
+        "# Вычисление суммы квадратов разностей от среднего\n",
+        "sum_of_squares = ((data['AVG_Salary'] - mean_salary) ** 2).sum()\n",
+        "\n",
+        "# Вычисление стандартного отклонения\n",
+        "std_deviation = (sum_of_squares / len(data['AVG_Salary'])) ** 0.5\n",
+        "\n"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "H21K7zOPKess",
+        "outputId": "1369ba55-a12d-46de-f9be-61f403720058"
+      },
+      "execution_count": 6,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Оценка дисперсии зарплаты: 273776192.51\n",
+            "Среднее значение зарплаты: 38890.48\n",
+            "Медиана зарплаты: 32473.0\n",
+            "Стандартное отклонение зарплаты: 16546.18\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "\n",
+        "# Вывод результатов\n",
+        "print(\"Среднее значение зарплаты:\", round(average_salary, 2))\n",
+        "print(\"Медиана зарплаты:\", round(median_salary, 2))\n",
+        "print(\"Оценка дисперсии зарплаты:\", round(variance_estimate, 2))\n",
+        "print(\"Стандартное отклонение зарплаты:\", round(std_deviation, 2))"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "HzLZe3MQLCb_",
+        "outputId": "de5fce5e-b6e9-4f1f-da5b-45748037a891"
+      },
+      "execution_count": 8,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Среднее значение зарплаты: 38890.48\n",
+            "Медиана зарплаты: 32473.0\n",
+            "Оценка дисперсии зарплаты: 273776192.51\n",
+            "Стандартное отклонение зарплаты: 16546.18\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [],
+      "metadata": {
+        "id": "zKjFk46zLNip"
+      },
+      "execution_count": null,
+      "outputs": []
+    }
+  ]
+}
